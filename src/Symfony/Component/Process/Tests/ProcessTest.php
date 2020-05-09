@@ -1521,6 +1521,14 @@ EOTXT;
         $this->assertFalse($process->isRunning());
     }
 
+    public function testPassingAHugeInputToAProcessThatDoesntReadInput()
+    {
+        $process = $this->getProcess([self::$phpBin, __DIR__.'/IgnoreStdinProcess.php']);
+        $process->setInput(random_bytes(200000));
+        $process->mustRun();
+        $this->assertEquals('Hello World!', $process->getOutput());
+    }
+
     /**
      * @param string|array $commandline
      * @param mixed        $input
