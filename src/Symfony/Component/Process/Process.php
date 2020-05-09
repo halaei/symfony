@@ -411,7 +411,11 @@ class Process implements \IteratorAggregate
 
         do {
             $this->checkTimeout();
-            $running = $this->isRunning();
+            try {
+                $running = $this->isRunning();
+            } catch (\Exception $e) {
+                $running = $this->isRunning();
+            }
         } while ($running);
 
         if ($this->processInformation['signaled'] && $this->processInformation['termsig'] !== $this->latestSignal) {
