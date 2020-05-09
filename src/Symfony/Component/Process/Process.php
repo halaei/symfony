@@ -413,7 +413,7 @@ class Process implements \IteratorAggregate
             $this->checkTimeout();
             try {
                 $running = $this->isRunning();
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 $running = $this->isRunning();
             }
         } while ($running);
